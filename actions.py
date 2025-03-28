@@ -24,7 +24,9 @@ def selectAllFromHistory():
 
         # Create a cursor object
         cursor = connection.cursor()
-
+        # ////////////////////
+        cursor.execute("SELECT * FROM history;")
+        return cursor.fetchall()
     except Exception as e:
         print(f"Error: {e}")
 
@@ -34,9 +36,8 @@ def selectAllFromHistory():
             cursor.close()
             connection.close()
             print("Database connection closed.")
+    return 'Database is lagging'
 
-    cursor.execute("SELECT * FROM history;")
-    return cursor.fetchall()
 
 def selectAllFromParams():
     config = configparser.ConfigParser()
@@ -60,6 +61,9 @@ def selectAllFromParams():
 
         # Create a cursor object
         cursor = connection.cursor()
+        # ////////////////////
+        cursor.execute("SELECT * FROM params;")
+        return cursor.fetchall()
 
     except Exception as e:
         print(f"Error: {e}")
@@ -70,9 +74,8 @@ def selectAllFromParams():
             cursor.close()
             connection.close()
             print("Database connection closed.")
+    return 'Database is lagging'
 
-    cursor.execute("SELECT * FROM params;")
-    return cursor.fetchall()
 
 
 def addHealth():
@@ -97,6 +100,10 @@ def addHealth():
 
         # Create a cursor object
         cursor = connection.cursor()
+        # ////////////////////
+
+        cursor.execute("INSERT INTO params (health) VALUES ()")
+        connection.commit()
 
     except Exception as e:
         print(f"Error: {e}")
@@ -108,7 +115,8 @@ def addHealth():
             connection.close()
             print("Database connection closed.")
 
-    cursor.execute("INSERT INTO params (health) VALUES ()")
+    return 'Database is lagging'
+
 
 
 
