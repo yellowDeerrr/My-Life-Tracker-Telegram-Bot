@@ -11,6 +11,7 @@ def send_welcome(message):
         bot.send_message(messageId, "This bot is private")
         return
     # ////////////////////////////////////////
+    bot.send_message(messageId, 'test')
     bot.send_message(messageId, selectAllFromHistory())
     bot.send_message(messageId, selectAllFromParams())
 

@@ -25,7 +25,7 @@ def connect():
         cursor = connection.cursor()
 
         cursor.execute("""CREATE TABLE params (
-                id INT PRIMARY KEY AUTO_INCREMENT,
+                id SERIAL PRIMARY KEY,
                 Health INT,
                 Strength INT,
                 Intelligence INT,
@@ -54,7 +54,7 @@ def connect():
             """)
         connection.commit()
         cursor.execute("""CREATE TABLE history (
-            id INT PRIMARY KEY AUTO_INCREMENT,
+            id SERIAL PRIMARY KEY,
             description TEXT,
             update_param VARCHAR
         );
