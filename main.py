@@ -1,7 +1,7 @@
 import telebot
 from actions import *
 
-bot = telebot.TeleBot("7605881665:AAFpJWhgENPjn-C4t8PkJhTHY-eH3UV1e3g")
+bot = telebot.TeleBot("7627299223:AAEecfLK-l1JrofjSAeUoU36RZ7-rZVXenc")
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -17,4 +17,7 @@ def send_welcome(message):
 def checkIfItIsMe(id):
     return id == 893695047
 
-bot.infinity_polling()
+def main():
+    bot.infinity_polling()
+if __name__ == "__main__":
+    main()
