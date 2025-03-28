@@ -1,5 +1,5 @@
 import telebot
-from db.actions import *
+from actions import *
 
 bot = telebot.TeleBot("7605881665:AAFpJWhgENPjn-C4t8PkJhTHY-eH3UV1e3g")
 

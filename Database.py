@@ -49,7 +49,7 @@ try:
             Recovery,
             Skills,
             Wisdom
-        )
+        ) VALUE (10, 10, 10, 10, 10, 10, 10, 10, 10, 10)
         """)
     connection.commit()
     cursor.execute("""CREATE TABLE history (
