@@ -23,13 +23,42 @@ try:
     # Create a cursor object
     cursor = connection.cursor()
 
-    # Execute a test query
-    cursor.execute("SELECT version();")
-
-    # Fetch and print result
-    db_version = cursor.fetchone()
-    print(f"Connected to database: {db_version}")
-
+    cursor.execute("""CREATE TABLE params (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            Health INT,
+            Strength INT,
+            Intelligence INT,
+            Charisma INT,
+            Self_Discipline INT,
+            Confidence INT,
+            Happiness INT,
+            Recovery INT,
+            Skills INT,
+            Wisdom INT
+        )
+        """)
+    connection.commit()
+    cursor.execute("""INSERT INTO params (
+            Health,
+            Strength,
+            Intelligence,
+            Charisma,
+            Self_Discipline,
+            Confidence,
+            Happiness,
+            Recovery,
+            Skills,
+            Wisdom
+        )
+        """)
+    connection.commit()
+    cursor.execute("""CREATE TABLE history (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        description TEXT,
+        update_param VARCHAR
+    );
+        """)
+    connection.commit()
 except Exception as e:
     print(f"Error: {e}")
 
