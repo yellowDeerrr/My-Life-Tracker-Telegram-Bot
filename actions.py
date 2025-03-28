@@ -25,43 +25,6 @@ def selectAllFromHistory():
         # Create a cursor object
         cursor = connection.cursor()
 
-        cursor.execute("""CREATE TABLE params (
-                    id SERIAL PRIMARY KEY,
-                    Health INT,
-                    Strength INT,
-                    Intelligence INT,
-                    Charisma INT,
-                    Self_Discipline INT,
-                    Confidence INT,
-                    Happiness INT,
-                    Recovery INT,
-                    Skills INT,
-                    Wisdom INT
-                )
-                """)
-        connection.commit()
-        cursor.execute("""INSERT INTO params (
-                    Health,
-                    Strength,
-                    Intelligence,
-                    Charisma,
-                    Self_Discipline,
-                    Confidence,
-                    Happiness,
-                    Recovery,
-                    Skills,
-                    Wisdom
-                ) VALUE (10, 10, 10, 10, 10, 10, 10, 10, 10, 10)
-                """)
-        connection.commit()
-        cursor.execute("""CREATE TABLE history (
-                id SERIAL PRIMARY KEY,
-                description TEXT,
-                update_param VARCHAR
-            );
-                """)
-        connection.commit()
-        return cursor
     except Exception as e:
         print(f"Error: {e}")
 
@@ -98,43 +61,20 @@ def selectAllFromParams():
         # Create a cursor object
         cursor = connection.cursor()
 
-        cursor.execute("""CREATE TABLE params (
-                    id SERIAL PRIMARY KEY,
-                    Health INT,
-                    Strength INT,
-                    Intelligence INT,
-                    Charisma INT,
-                    Self_Discipline INT,
-                    Confidence INT,
-                    Happiness INT,
-                    Recovery INT,
-                    Skills INT,
-                    Wisdom INT
-                )
-                """)
-        connection.commit()
         cursor.execute("""INSERT INTO params (
-                    Health,
-                    Strength,
-                    Intelligence,
-                    Charisma,
-                    Self_Discipline,
-                    Confidence,
-                    Happiness,
-                    Recovery,
-                    Skills,
-                    Wisdom
-                ) VALUE (10, 10, 10, 10, 10, 10, 10, 10, 10, 10)
-                """)
+                        Health,
+                        Strength,
+                        Intelligence,
+                        Charisma,
+                        Self_Discipline,
+                        Confidence,
+                        Happiness,
+                        Recovery,
+                        Skills,
+                        Wisdom
+                    ) VALUE (1, 12, 13, 14, 15, 16, 17, 18, 19, 100)
+                    """)
         connection.commit()
-        cursor.execute("""CREATE TABLE history (
-                id SERIAL PRIMARY KEY,
-                description TEXT,
-                update_param VARCHAR
-            );
-                """)
-        connection.commit()
-        return cursor
     except Exception as e:
         print(f"Error: {e}")
 
@@ -147,6 +87,8 @@ def selectAllFromParams():
 
     cursor.execute("SELECT * FROM params")
     return cursor.fetchall()
+
+
 def addHealth():
     config = configparser.ConfigParser()
     config.read("config.ini")
@@ -170,21 +112,6 @@ def addHealth():
         # Create a cursor object
         cursor = connection.cursor()
 
-        cursor.execute("""CREATE TABLE params (
-                    id SERIAL PRIMARY KEY,
-                    Health INT,
-                    Strength INT,
-                    Intelligence INT,
-                    Charisma INT,
-                    Self_Discipline INT,
-                    Confidence INT,
-                    Happiness INT,
-                    Recovery INT,
-                    Skills INT,
-                    Wisdom INT
-                )
-                """)
-        connection.commit()
         cursor.execute("""INSERT INTO params (
                     Health,
                     Strength,
@@ -196,17 +123,9 @@ def addHealth():
                     Recovery,
                     Skills,
                     Wisdom
-                ) VALUE (10, 10, 10, 10, 10, 10, 10, 10, 10, 10)
+                ) VALUE (1, 12, 13, 14, 15, 16, 17, 18, 19, 100)
                 """)
         connection.commit()
-        cursor.execute("""CREATE TABLE history (
-                id SERIAL PRIMARY KEY,
-                description TEXT,
-                update_param VARCHAR
-            );
-                """)
-        connection.commit()
-        return cursor
     except Exception as e:
         print(f"Error: {e}")
 
