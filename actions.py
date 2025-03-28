@@ -35,7 +35,7 @@ def selectAllFromHistory():
             connection.close()
             print("Database connection closed.")
 
-    cursor.execute("SELECT * FROM history")
+    cursor.execute("SELECT * FROM history;")
     return cursor.fetchall()
 
 def selectAllFromParams():
@@ -71,7 +71,7 @@ def selectAllFromParams():
             connection.close()
             print("Database connection closed.")
 
-    cursor.execute("SELECT * FROM params")
+    cursor.execute("SELECT * FROM params;")
     return cursor.fetchall()
 
 
