@@ -1,5 +1,5 @@
 # Use Python 3.9 slim image as base
-FROM python:3.9-slim
+FROM python
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Run your Python application
-CMD ["python", "main.py"]
+CMD ["python3", "main.py"]
