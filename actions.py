@@ -61,20 +61,6 @@ def selectAllFromParams():
         # Create a cursor object
         cursor = connection.cursor()
 
-        cursor.execute("""INSERT INTO params (
-                        Health,
-                        Strength,
-                        Intelligence,
-                        Charisma,
-                        Self_Discipline,
-                        Confidence,
-                        Happiness,
-                        Recovery,
-                        Skills,
-                        Wisdom
-                    ) VALUE (1, 12, 13, 14, 15, 16, 17, 18, 19, 100)
-                    """)
-        connection.commit()
     except Exception as e:
         print(f"Error: {e}")
 
@@ -112,20 +98,6 @@ def addHealth():
         # Create a cursor object
         cursor = connection.cursor()
 
-        cursor.execute("""INSERT INTO params (
-                    Health,
-                    Strength,
-                    Intelligence,
-                    Charisma,
-                    Self_Discipline,
-                    Confidence,
-                    Happiness,
-                    Recovery,
-                    Skills,
-                    Wisdom
-                ) VALUE (1, 12, 13, 14, 15, 16, 17, 18, 19, 100)
-                """)
-        connection.commit()
     except Exception as e:
         print(f"Error: {e}")
 
@@ -137,3 +109,6 @@ def addHealth():
             print("Database connection closed.")
 
     cursor.execute("INSERT INTO params (health) VALUES ()")
+
+
+
