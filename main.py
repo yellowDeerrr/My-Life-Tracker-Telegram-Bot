@@ -1,24 +1,17 @@
-import telebot
-from actions import *
+from aiogram import Bot, Dispatcher
+from app.handlers import router
+import asyncio
 
-bot = telebot.TeleBot("7627299223:AAEecfLK-l1JrofjSAeUoU36RZ7-rZVXenc")
+async def main():
+    bot = Bot(token='7627299223:AAEecfLK-l1JrofjSAeUoU36RZ7-rZVXenc')
+    dp = Dispatcher()
 
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    messageId = message.chat.id
-    # ////////////////////////////////////////
-    if not checkIfItIsMe(message.from_user.id):
-        bot.send_message(messageId, "This bot is private")
-        return
-    # ////////////////////////////////////////
-    bot.send_message(messageId, 'test')
-    bot.send_message(messageId, selectAllFromHistory())
-    bot.send_message(messageId, selectAllFromParams())
+    dp.include_router(router)
+    await dp.start_polling(bot)
 
-def checkIfItIsMe(id):
-    return id == 893695047
 
-def main():
-    bot.infinity_polling()
 if __name__ == "__main__":
-    main()
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("Bot is off")
