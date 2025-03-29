@@ -7,7 +7,7 @@ async def main():
     bot = Bot(token='7627299223:AAEecfLK-l1JrofjSAeUoU36RZ7-rZVXenc')
     dp = Dispatcher()
 
-    asyncio.create_task(start_server(8080))
+    asyncio.create_task(start_server(443))
 
     dp.include_router(router)
     await dp.start_polling(bot)
