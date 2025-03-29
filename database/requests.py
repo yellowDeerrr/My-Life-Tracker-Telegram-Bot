@@ -46,13 +46,11 @@ class BotDB:
             print(f"Error: {e}")
 
     def get_history_data(self):
-        self.cursor.execute("SELECT (type, param, amount, description, date, current_param_value) FROM history;")
+        self.cursor.execute("SELECT type, param, amount, description, date, current_param_value FROM history;")
         rows = self.cursor.fetchall()
 
         if not rows:
             return "No history found."
-
-
 
         formatted_output = "✅ - Added Points\n❌ - Reduced Points\n🌱 - Increased Level\n\n"
         for row in rows:

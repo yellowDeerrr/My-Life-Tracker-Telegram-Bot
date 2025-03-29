@@ -52,6 +52,11 @@ async def see_history(callback: CallbackQuery):
     await callback.message.answer(BotDB.get_history_data())
 
 
+@router.callback_query(F.data == 'readme-description')
+async def readme_description(callback: CallbackQuery):
+    await callback.answer('')
+    await callback.message.answer("https://github.com/yellowDeerrr/My-Life-Tracker-Telegram-Bot/blob/main/configREADME-PARAMS.md")
+
 @router.callback_query(F.data == 'main-menu')
 async def return_to_main_menu(callback: CallbackQuery):
     await callback.answer('')

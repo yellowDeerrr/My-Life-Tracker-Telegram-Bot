@@ -9,7 +9,8 @@ main = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='♐️ Add Points'),
                            resize_keyboard=True)
 
 others_tab = InlineKeyboardMarkup(inline_keyboard=
-                                  [[InlineKeyboardButton(text='🗄 See History', callback_data='see-history')]])
+                                  [[InlineKeyboardButton(text='🗄 See History', callback_data='see-history')],
+                                   [InlineKeyboardButton(text='📋 Description Of Parameters', callback_data='readme-description')]])
 
 add_points = InlineKeyboardMarkup(inline_keyboard=
                                [[InlineKeyboardButton(text='❤️ Health', callback_data='param-add-health'),
@@ -23,12 +24,3 @@ add_points = InlineKeyboardMarkup(inline_keyboard=
                                [InlineKeyboardButton(text='😃 Happiness', callback_data='param-add-happiness'),
                                InlineKeyboardButton(text='🩹 Recovery', callback_data='param-add-recovery')],
                                 [InlineKeyboardButton(text='⬅️ Back', callback_data='main-menu')]])
-
-catalog = InlineKeyboardMarkup(inline_keyboard=
-                               [[InlineKeyboardButton(text='T-shirts', callback_data='t-shirt')],
-                               [InlineKeyboardButton(text='pants', callback_data='pants'),
-                                InlineKeyboardButton(text="Кепки", callback_data='cap')]])
-
-get_number = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text='Send number', request_contact=True)]],
-    resize_keyboard=True)
