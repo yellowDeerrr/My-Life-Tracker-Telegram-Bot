@@ -17,6 +17,11 @@ class AddPoints(StatesGroup):
     amount = State()
     description = State()
 
+class ReducePoints(StatesGroup):
+    params = State()
+    amount = State()
+    description = State()
+
 @router.message(CommandStart())
 async def start(message: Message):
     await message.answer("You're in main menu\nChoose Option", reply_markup=kb.main)
@@ -25,13 +30,13 @@ async def start(message: Message):
 @router.message(F.text == '♐️ Add Points')
 async def cmd_add_points(message: Message):
     # Make sure the inline keyboard is being sent correctly
-    await message.answer("Choose Parameter", reply_markup=kb.add_points)
+    await message.answer("Which Parameter Will you increase", reply_markup=kb.add_points)
 
 
 @router.message(F.text == '〽️ Reduce Point')
 async def cmd_reduce_points(message: Message):
     # Implement the reduce point functionality
-    await message.answer("This feature is coming soon!")
+    await message.answer("Choose Parameter to Reduce", reply_markup=kb.reduce_points)
 
 
 @router.message(F.text == '📊 Get Parameters')
@@ -55,12 +60,50 @@ async def see_history(callback: CallbackQuery):
 @router.callback_query(F.data == 'readme-description')
 async def readme_description(callback: CallbackQuery):
     await callback.answer('')
-    await callback.message.answer("https://github.com/yellowDeerrr/My-Life-Tracker-Telegram-Bot/blob/main/configREADME-PARAMS.md")
+    await callback.message.answer("https://github.com/yellowDeerrr/My-Life-Tracker-Telegram-Bot/blob/main/config/README-PARAMS.md")
 
 @router.callback_query(F.data == 'main-menu')
 async def return_to_main_menu(callback: CallbackQuery):
     await callback.answer('')
     await callback.message.answer("You're in main menu\nChoose Option", reply_markup=kb.main)
+
+
+
+@router.callback_query(F.data.startswith('param-reduce'))
+async def reduce_points_param(callback: CallbackQuery, state: FSMContext):
+    await callback.answer('')
+    param = callback.data.split('-')[-1]  # Gets the parameter name from callback data.
+    if param == 'self_discipline':
+        param = 'Self Discipline'
+    await state.update_data(param=param)  # store the parameter into the state.
+    await callback.message.answer(f"How many points do you want to reduce to {param}?")
+    await state.set_state(ReducePoints.amount)
+
+
+@router.message(ReducePoints.amount)
+async def reduce_points_amount(message: Message, state: FSMContext):
+    try:
+        amount = int(message.text)
+        await state.update_data(amount=amount)
+
+        await message.answer("Write a description of this action", reply_markup=kb.main)
+        await state.set_state(ReducePoints.description)
+    except ValueError:
+        await message.answer("Please enter a valid number.")
+        await reduce_points_amount(message)
+
+
+@router.message(ReducePoints.description)
+async def reduce_points_amount(message: Message, state: FSMContext):
+        description = message.text
+        data = await state.get_data()
+        param = data['param']
+        amount = data['amount']
+        BotDB.reduce_points_param(param, amount, description)  # Update database
+        await message.answer(f"Reduced {amount} points to {param}!")
+        await cmd_reduce_points(message)
+
+
 
 
 # Make sure all callback handlers are properly registered
@@ -69,7 +112,7 @@ async def add_points_param(callback: CallbackQuery, state: FSMContext):
     await callback.answer('')
     param = callback.data.split('-')[-1]  # Gets the parameter name from callback data.
     if param == 'self_discipline':
-        param = 'Self Discipline';
+        param = 'Self Discipline'
     await state.update_data(param=param)  # store the parameter into the state.
     await callback.message.answer(f"How many points do you want to add to {param}?")
     await state.set_state(AddPoints.amount)

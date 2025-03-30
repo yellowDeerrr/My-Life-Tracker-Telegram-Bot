@@ -164,6 +164,20 @@ class BotDB:
 
         return formatted_output
 
+
+    def reduce_points_param(self, param, amount : int, description):
+        self.cursor.execute(f'SELECT {param} from params where id = 1;')
+        points = self.cursor.fetchone()
+        update_new_points_value = points[0] - amount
+        if update_new_points_value < 0:
+            update_new_points_value = 0
+
+        self.cursor.execute(f'UPDATE params SET {param} = {update_new_points_value};')
+
+        self.connection.commit()
+        self.add_history_record('reduce_points', param, amount, description)
+
+
     def __del__(self):
         # Safely close connection when object is destroyed
         if self.cursor:
