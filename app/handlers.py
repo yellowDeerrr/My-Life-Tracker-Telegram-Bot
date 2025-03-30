@@ -68,6 +68,8 @@ async def return_to_main_menu(callback: CallbackQuery):
 async def add_points_param(callback: CallbackQuery, state: FSMContext):
     await callback.answer('')
     param = callback.data.split('-')[-1]  # Gets the parameter name from callback data.
+    if param == 'self_discipline':
+        param = 'Self Discipline';
     await state.update_data(param=param)  # store the parameter into the state.
     await callback.message.answer(f"How many points do you want to add to {param}?")
     await state.set_state(AddPoints.amount)
@@ -94,4 +96,5 @@ async def add_points_amount(message: Message, state: FSMContext):
         amount = data['amount']
         BotDB.add_points_param(param, amount, description)  # Update database
         await message.answer(f"Added {amount} points to {param}!")
+        await cmd_add_points(message)
 

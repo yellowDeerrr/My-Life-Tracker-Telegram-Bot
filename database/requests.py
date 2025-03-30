@@ -15,9 +15,9 @@ class BotDB:
         "wisdom": "🦉",  # Owl
     }
     emoji_map_history = {
-        "add_points": "✅",  # Plus sign
-        "reduce_points": "❌",  # Minus sign
-        "add_level": "🌱"
+        "add_points": "🌱",  # Plus sign
+        "reduce_points": "〽️",  # Minus sign
+        "add_level": "✅"
         # Add more emojis for other action types
     }
     def __init__(self):
@@ -52,7 +52,7 @@ class BotDB:
         if not rows:
             return "No history found."
 
-        formatted_output = "✅ - Added Points\n❌ - Reduced Points\n🌱 - Increased Level\n\n"
+        formatted_output = "🌱 - Added Points\n〽️ - Reduced Points\n✅ - Increased Level\n\n"
         for row in rows:
             action_type, param, amount, description, date, current_param_value = row
             emoji = self.emoji_map_history.get(action_type, "❓")  # Get emoji, or use a question mark
@@ -66,11 +66,21 @@ class BotDB:
 
     def add_history_record(self, type, param, amount: int, description):
         if type == 'add_level':
-            self.cursor.execute(f"""insert into history (type, param, amount, description, current_param_value) values 
-                                            ('{type}', '{param}', {amount}, '{description}', (select {param} from levels));""")
+            self.cursor.execute(f"SELECT {param} FROM levels;")
+            fetchone = self.cursor.fetchone()
+            param_value = fetchone[0]
+
+            self.cursor.execute("INSERT INTO history (type, param, amount, description, current_param_value) VALUES "
+                                "(%s, %s, %s, %s, %s);",
+                                (type, param, amount, description, param_value))
         else:
-            self.cursor.execute(f"""insert into history (type, param, amount, description, current_param_value) values 
-                                ('{type}', '{param}', {amount}, '{description}', (select {param} from params));""")
+            self.cursor.execute(f"SELECT {param} FROM params;")
+            fetchone = self.cursor.fetchone()
+            param_value = fetchone[0]
+
+            self.cursor.execute("INSERT INTO history (type, param, amount, description, current_param_value) VALUES "
+                                "(%s, %s, %s, %s, %s);",
+                                (type, param, amount, description, param_value))
         self.connection.commit()
 
     def get_params_data(self):
@@ -153,3 +163,10 @@ class BotDB:
             formatted_output += row_string
 
         return formatted_output
+
+    def __del__(self):
+        # Safely close connection when object is destroyed
+        if self.cursor:
+            self.cursor.close()
+        if self.connection:
+            self.connection.close()
