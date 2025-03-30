@@ -16,11 +16,13 @@ class AddPoints(StatesGroup):
     params = State()
     amount = State()
     description = State()
+    formatted_param = State()
 
 class ReducePoints(StatesGroup):
     params = State()
     amount = State()
     description = State()
+    formatted_param = State()
 
 @router.message(CommandStart())
 async def start(message: Message):
@@ -73,10 +75,16 @@ async def return_to_main_menu(callback: CallbackQuery):
 async def reduce_points_param(callback: CallbackQuery, state: FSMContext):
     await callback.answer('')
     param = callback.data.split('-')[-1]  # Gets the parameter name from callback data.
-    if param == 'self_discipline':
-        param = 'Self Discipline'
     await state.update_data(param=param)  # store the parameter into the state.
-    await callback.message.answer(f"How many points do you want to reduce to {param}?")
+
+    if param == 'self_discipline':
+        formatted_param = 'Self Discipline'
+    else:
+        formatted_param = param.capitalize()
+
+    await state.update_data(formatted_param=formatted_param)
+
+    await callback.message.answer(f"How many points do you want to reduce to {formatted_param}?")
     await state.set_state(ReducePoints.amount)
 
 
@@ -96,11 +104,14 @@ async def reduce_points_amount(message: Message, state: FSMContext):
 @router.message(ReducePoints.description)
 async def reduce_points_amount(message: Message, state: FSMContext):
         description = message.text
+
         data = await state.get_data()
         param = data['param']
         amount = data['amount']
+        formatted_param = data['formatted_param']
+
         BotDB.reduce_points_param(param, amount, description)  # Update database
-        await message.answer(f"Reduced {amount} points to {param}!")
+        await message.answer(f"Reduced {amount} points to {formatted_param}!")
         await cmd_reduce_points(message)
 
 
@@ -111,10 +122,17 @@ async def reduce_points_amount(message: Message, state: FSMContext):
 async def add_points_param(callback: CallbackQuery, state: FSMContext):
     await callback.answer('')
     param = callback.data.split('-')[-1]  # Gets the parameter name from callback data.
+    await state.update_data(param=param)
+
     if param == 'self_discipline':
-        param = 'Self Discipline'
-    await state.update_data(param=param)  # store the parameter into the state.
-    await callback.message.answer(f"How many points do you want to add to {param}?")
+        formatted_param = 'Self Discipline'
+    else:
+        formatted_param = param.capitalize()
+
+    await state.update_data(formatted_param=formatted_param)
+
+     # store the parameter into the state.
+    await callback.message.answer(f"How many points do you want to add to {formatted_param}?")
     await state.set_state(AddPoints.amount)
 
 
@@ -134,10 +152,13 @@ async def add_points_amount(message: Message, state: FSMContext):
 @router.message(AddPoints.description)
 async def add_points_amount(message: Message, state: FSMContext):
         description = message.text
+
         data = await state.get_data()
         param = data['param']
         amount = data['amount']
+        formatted_param = data['formatted_param']
+
         BotDB.add_points_param(param, amount, description)  # Update database
-        await message.answer(f"Added {amount} points to {param}!")
+        await message.answer(f"Added {amount} points to {formatted_param}!")
         await cmd_add_points(message)
 
