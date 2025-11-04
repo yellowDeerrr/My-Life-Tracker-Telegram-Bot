@@ -35,7 +35,7 @@ As your XP increases, your **parameters grow**, and your **level rises**, repres
 
 | Description | Image |
 |--------------|--------|
-| 📊 Parameter Overview | ![Parameters Overview](docs/param.png) |
+| 📊 Parameter Overview | ![Parameters Overview](docs/params.png) |
 | 💪 Increasing Parameters | ![Increasing Parameters](docs/increase_param.png) |
 | 🧠 Progress History | ![Progress History](docs/history.png) |
 
