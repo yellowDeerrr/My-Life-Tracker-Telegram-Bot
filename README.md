@@ -1,8 +1,17 @@
 
 # RPG Life Parameter System
 
-This is a guide to gamifying your life, using RPG-style mechanics to track your personal growth, progress, and well-being. The concept involves tracking key attributes such as Health, Strength, Intelligence, and more. Each parameter represents an aspect of your life, and you gain experience points (XP) through completing tasks, challenges, and daily quests. This system is designed to make your daily activities more engaging and rewarding.
+This is a guide to gamifying your life, using RPG-style mechanics to track your personal growth, progress, and well-being.  
+The concept involves tracking key attributes such as **Health**, **Strength**, **Intelligence**, and more — each representing a specific aspect of your real-life journey.  
 
+You gain **experience points (XP)** by completing tasks, challenges, and daily quests.  
+As you earn XP, your **level increases**, reflecting your progress and evolution across all tracked parameters.  
+This system makes your daily activities more engaging and rewarding, turning personal growth into a game-like adventure.  
+
+> 🧠 This project is implemented in **Python** using the **Aiogram** framework for Telegram bots.  
+> The bot allows you to interact with your character, update stats, and view your progress directly in chat.
+
+---
 
 ## Parameters List:
 1. [Health (HP)](#health-hp)
@@ -18,6 +27,21 @@ This is a guide to gamifying your life, using RPG-style mechanics to track your 
 
 ---
 
+## 🧩 Project Overview & Examples
+
+Below are examples from my **Telegram bot**, which uses this system in real-time conversations.  
+You can interact with your “character,” complete daily tasks, gain XP, and level up through the bot’s interface.  
+As your XP increases, your **parameters grow**, and your **level rises**, representing your personal development.
+
+| Description | Image |
+|--------------|--------|
+| 📊 Parameter Overview | ![Parameters Overview](docs/param.png) |
+| 💪 Increasing Parameters | ![Increasing Parameters](docs/increase_param.png) |
+| 🧠 Progress History | ![Progress History](docs/history.png) |
+
+These examples demonstrate how the RPG life system can be visualized and interacted with inside Telegram — turning everyday habits into a gamified experience.
+
+---
 
 ## Character Parameters
 
